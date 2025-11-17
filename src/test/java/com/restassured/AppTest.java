@@ -1,20 +1,30 @@
 package com.restassured;
 
-import static org.junit.Assert.assertTrue;
+import org.testng.annotations.*;
 
-import org.junit.Test;
+import io.restassured.RestAssured;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 
-/**
- * Unit test for simple App.
- */
 public class AppTest 
 {
-    /**
-     * Rigorous Test :-)
-     */
+    /*  
+        GET https://catfact.ninja/fact
+    */
+
     @Test
-    public void shouldAnswerWithTrue()
+    public void getFacts()
     {
-        assertTrue( true );
+        RestAssured.baseURI = "https://catfact.ninja/";
+        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+        Response response = RestAssured.given()
+            .contentType(ContentType.JSON)
+            .when()
+            .get("/fact")
+            .then()
+            .statusCode(200)
+            .extract().response();
     }
 }

@@ -45,3 +45,10 @@ podman build -f Containerfile -t rest-assured-course:latest .
 ```
 podman run --rm rest-assured-course:latest
 ```
+
+Dev container (optional)
+
+To use Podman instead of Docker, configure the Dev Containers extension to use Podman by setting the dockerPath to "podman". See the VS Code docs: https://code.visualstudio.com/remote/advancedcontainers/docker-options#_podman
+
+Install the Dev Containers extension:
+- Marketplace: https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers
