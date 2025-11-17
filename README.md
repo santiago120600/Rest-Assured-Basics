@@ -25,3 +25,23 @@ To open in VS Code:
 ```
 code .
 ```
+
+## Podman: build & run
+
+Prerequisites:
+- Podman installed and a running Podman machine.
+
+1) Start the Podman machine (PowerShell / CMD):
+```
+podman machine start podman-machine-default
+```
+
+2) Build the image (uses the project Containerfile):
+```
+podman build -f Containerfile -t rest-assured-course:latest .
+```
+
+3) Run the container (the image ENTRYPOINT runs `mvn test`):
+```
+podman run --rm rest-assured-course:latest
+```
