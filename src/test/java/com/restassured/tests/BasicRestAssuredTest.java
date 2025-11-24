@@ -8,7 +8,6 @@ import io.restassured.response.Response;
 import static org.hamcrest.Matchers.notNullValue;
 
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 public class BasicRestAssuredTest {
@@ -18,7 +17,7 @@ public class BasicRestAssuredTest {
         Accept: application/json
     */
 
-    @Test(enabled = false)
+    @Test
     public void testGetRequest() {
         RestAssured.baseURI = "http://host.docker.internal/api/v1";
         RestAssured.basePath = "/authors";
@@ -38,7 +37,6 @@ public class BasicRestAssuredTest {
     }
 
     @Test
-    @Ignore
     public void testGetRequest1() {
         Response response = RestAssured.given()
             .baseUri("http://host.docker.internal/api/v1")
@@ -67,7 +65,7 @@ public class BasicRestAssuredTest {
         }
     */
 
-    @Test(enabled = false)
+    @Test
     public void testPostRequest() {
         String requestBody = "{\"first_name\": \"Ernest\", \"last_name\": \"Hemingway\"}";
 
@@ -95,7 +93,7 @@ public class BasicRestAssuredTest {
         }
     */
 
-    @Test(enabled = false)
+    @Test
     public void testPutRequest() {
         String requestBody = "{\"first_name\": \"Ernest Miller\", \"last_name\": \"Hemingway\"}";
 
@@ -119,7 +117,7 @@ public class BasicRestAssuredTest {
         DELETE http://host.docker.internal/api/v1/authors/4
     */
 
-    @Test(enabled = true)
+    @Test
     public void testDeleteRequest() {
 
         Response response = RestAssured.given()

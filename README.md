@@ -52,3 +52,47 @@ To use Podman instead of Docker, configure the Dev Containers extension to use P
 
 Install the Dev Containers extension:
 - Marketplace: https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers
+
+## Maven
+
+Run a specific test method from a given class:
+
+`mvn test -Dtest=YourTestClass#yourTestMethod`
+
+Example:
+
+`mvn test -Dtest=BasicRestAssuredTest#testGetRequest`
+
+## CURL Examples
+
+### GET request
+```
+curl -X GET "http://host.docker.internal/api/v1/authors" \
+  -H "Accept: application/json"
+```
+
+### POST request
+```
+curl -X POST "http://host.docker.internal/api/v1/authors" \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d '{
+    "first_name": "Ernest",
+    "last_name": "Hemingway"
+  }'
+```
+
+### PUT request
+```
+curl -X PUT "http://host.docker.internal/api/v1/authors/3" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "first_name": "Ernest Miller",
+    "last_name": "Hemingway"
+  }'
+```
+
+### DELETE request
+```
+curl -X DELETE "http://host.docker.internal/api/v1/authors/4"
+```
