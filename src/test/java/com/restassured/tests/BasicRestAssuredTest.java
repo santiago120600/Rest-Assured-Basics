@@ -36,6 +36,11 @@ public class BasicRestAssuredTest {
         // response.prettyPrint();
     }
 
+    /*  
+        GET http://host.docker.internal/api/v1/authors HTTP/1.1
+        Accept: application/json
+    */
+
     @Test
     public void testGetRequest1() {
         Response response = RestAssured.given()
@@ -52,6 +57,44 @@ public class BasicRestAssuredTest {
             .extract().response();
         // Print the response body
         response.prettyPrint();
+    }
+
+    /*  
+        GET http://host.docker.internal/api/v1/authors?firstName=Ernest HTTP/1.1
+        Accept: application/json
+    */
+
+    @Test
+    public void testGetQueryParamsRequest() {
+        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+
+        Response response = RestAssured.given()
+            .accept(ContentType.JSON)
+            .when()
+            .queryParam("firstName", "Ernest")
+            .get("http://host.docker.internal/api/v1/authors")
+            .then()
+            .extract().response();
+        Assert.assertEquals(response.getStatusCode(), 200);
+    }
+
+    /*
+        GET http://host.docker.internal/api/v1/authors/3 HTTP/1.1
+        Accept: application/json
+    */
+
+    @Test
+    public void testGetPathParamsRequest() {
+        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+
+        Response response = RestAssured.given()
+            .accept(ContentType.JSON)
+            .when()
+            .pathParam("id", 3)
+            .get("http://host.docker.internal/api/v1/authors/{id}")
+            .then()
+            .extract().response();
+        Assert.assertEquals(response.getStatusCode(), 200);
     }
 
     /*
