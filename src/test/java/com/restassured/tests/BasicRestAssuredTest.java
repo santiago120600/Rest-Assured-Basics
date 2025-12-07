@@ -19,7 +19,6 @@ public class BasicRestAssuredTest {
 
     @Test
     public void testGetRequest() {
-        RestAssured.baseURI = "http://host.docker.internal/api/v1";
         RestAssured.basePath = "/authors";
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
 
