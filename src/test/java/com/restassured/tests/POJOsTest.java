@@ -23,6 +23,7 @@ public class POJOsTest {
     @BeforeTest
     public void setup() {
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+        // RestAssured.proxy("host.docker.internal", 8866);
         spec = new RequestSpecBuilder()
                 .setBaseUri(baseUri)
                 .setContentType(ContentType.JSON)

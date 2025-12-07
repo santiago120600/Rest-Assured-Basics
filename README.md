@@ -96,3 +96,29 @@ curl -X PUT "http://host.docker.internal/api/v1/authors/3" \
 ```
 curl -X DELETE "http://host.docker.internal/api/v1/authors/4"
 ```
+
+### Proxy
+
+I will use **mitmproxy**  
+Docker Hub: https://hub.docker.com/r/mitmproxy/mitmproxy/
+
+To run mitmweb with Podman:
+
+```
+podman run -d \
+  --name mitmproxy \
+  -p 8866:8866 \
+  -p 8081:8081 \
+  mitmproxy/mitmproxy:12.1.1 \
+  mitmweb --listen-host 0.0.0.0 --listen-port 8866 \
+          --web-host 0.0.0.0 --web-port 8081 \
+          --set web_password=Password1!
+```
+
+The command starts:
+
+- The **proxy** on port **8866**  
+- The **web interface** on port **8081**
+
+Test the proxy
+`curl -x http://localhost:8866 http://host.docker.internal/api/v1/authors`

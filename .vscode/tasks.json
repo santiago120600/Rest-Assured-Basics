@@ -3,7 +3,7 @@
     // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
-         {
+        {
             "label": "podman: start machine",
             "type": "shell",
             "command": "podman machine start podman-machine-default",
@@ -40,6 +40,34 @@
                 "focus": false,
                 "panel": "shared"
             },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run mitmproxy",
+            "type": "shell",
+            "command": "podman",
+            "args": [
+                "run",
+                "-d",
+                "--name",
+                "mitmproxy",
+                "-p",
+                "8866:8866",
+                "-p",
+                "8081:8081",
+                "mitmproxy/mitmproxy:12.1.1",
+                "mitmweb",
+                "--listen-host",
+                "0.0.0.0",
+                "--listen-port",
+                "8866",
+                "--web-host",
+                "0.0.0.0",
+                "--web-port",
+                "8081",
+                "--set",
+                "web_password=Password1!"
+            ],
             "problemMatcher": []
         }
     ]
