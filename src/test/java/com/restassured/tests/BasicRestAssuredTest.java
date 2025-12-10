@@ -5,14 +5,17 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.equalTo;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class BasicRestAssuredTest {
 
-    /*  
+    /*
         GET http://host.docker.internal/api/v1/authors HTTP/1.1
         Accept: application/json
     */
@@ -35,7 +38,7 @@ public class BasicRestAssuredTest {
         // response.prettyPrint();
     }
 
-    /*  
+    /*
         GET http://host.docker.internal/api/v1/authors HTTP/1.1
         Accept: application/json
     */
@@ -58,7 +61,7 @@ public class BasicRestAssuredTest {
         response.prettyPrint();
     }
 
-    /*  
+    /*
         GET http://host.docker.internal/api/v1/authors?firstName=Ernest HTTP/1.1
         Accept: application/json
     */
@@ -175,4 +178,88 @@ public class BasicRestAssuredTest {
         // Print the response body
         response.prettyPrint();
     }
+
+    @Test
+    public void testJsonPathExtract() {
+        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+
+        String firstName = RestAssured.given()
+            .accept(ContentType.JSON)
+            .when()
+            .pathParam("id", 2)
+            .get("http://host.docker.internal/api/v1/authors/{id}")
+            .then()
+            .statusCode(200)
+            .extract()
+            .path("first_name");
+
+        Assert.assertEquals(firstName, "Ernest");
+    }
+
+    @Test
+    public void testSpecificFields() {
+        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+
+        RestAssured.given()
+            .accept(ContentType.JSON)
+            .when()
+            .pathParam("id", 2)
+            .get("http://host.docker.internal/api/v1/authors/{id}")
+            .then()
+            .statusCode(200)
+            .body("first_name", equalTo("Ernest"))
+            .body("last_name", equalTo("Hemingway"));
+    }
+
+    @Test
+    public void testMultipleFields() {
+        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+        RestAssured.given()
+            .accept(ContentType.JSON)
+            .when()
+            .pathParam("id", 2)
+            .get("http://host.docker.internal/api/v1/authors/{id}")
+            .then()
+            .statusCode(200)
+            .body("first_name", equalTo("Ernest"),
+                  "last_name", equalTo("Hemingway"));
+    }
+
+    /*
+        GET http://host.docker.internal/api/v1/books/1 HTTP/1.1
+        Accept: application/json
+    */
+
+    @Test
+    public void testNestedField() {
+        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+        RestAssured.given()
+            .accept(ContentType.JSON)
+            .when()
+            .pathParam("id", 1)
+            .get("http://host.docker.internal/api/v1/books/{id}")
+            .then()
+            .statusCode(200)
+            .body("author.last_name", equalTo("Hemingway"));
+    }
+
+    /*
+        GET http://host.docker.internal/api/v1/authors HTTP/1.1
+        Accept: application/json
+    */
+
+    @Test
+    public void testArrayFields() {
+        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+        RestAssured.given()
+            .accept(ContentType.JSON)
+            .when()
+            .get("http://host.docker.internal/api/v1/authors")
+            .then()
+            .statusCode(200)
+            .body("", hasSize(5))
+            .body("id", hasItems(1,2,3,5,6));
+    }
+
+
 }
