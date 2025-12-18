@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="RestAssuredSuite" verbose="1">
+  <test name="RestAssuredTests">
+    <classes>
+      <class name="com.restassured.tests.BasicRestAssuredTest">
+        <methods>
+          <include name="testGetRequest" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+</suite>

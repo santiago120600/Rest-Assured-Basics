@@ -8,4 +8,6 @@ RUN mvn dependency:go-offline -B
 
 COPY src ./src
 
+COPY testng.xml .
+
 ENTRYPOINT ["mvn", "test"]
