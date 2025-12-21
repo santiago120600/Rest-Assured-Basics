@@ -17,9 +17,9 @@
             "problemMatcher": []
         },
         {
-            "label": "podman: build",
+            "label": "podman compose up",
             "type": "shell",
-            "command": "podman build -f Containerfile -t rest-assured-course:latest .",
+            "command": "podman compose up --build",
             "group": "build",
             "presentation": {
                 "echo": true,
@@ -30,9 +30,9 @@
             "problemMatcher": []
         },
         {
-            "label": "podman: run",
+            "label": "podman compose down",
             "type": "shell",
-            "command": "podman run --rm rest-assured-course:latest",
+            "command": "podman compose down",
             "group": "build",
             "presentation": {
                 "echo": true,

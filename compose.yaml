@@ -1,0 +1,9 @@
+services:
+  restassured:
+    build:
+      context: .
+      dockerfile: Containerfile
+    container_name: rest-assured-course
+    network_mode: host
+    volumes:
+      - ./reports:/workspace/reports
