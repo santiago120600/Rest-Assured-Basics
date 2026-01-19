@@ -31,27 +31,41 @@ code .
 Prerequisites:
 - Podman installed and a running Podman machine.
 
-1) Start the Podman machine (PowerShell / CMD):
+Start the services using Podman Compose:
+
 ```
-podman machine start podman-machine-default
+podman compose up --build
 ```
 
-2) Build the image (uses the project Containerfile):
+### VS Code Dev Container Configuration (Optional)
+
+To use Podman instead of Docker with the Dev Containers extension:
+
+1.  Install the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
+2.  Configure the extension to use Podman by adding the following setting to your User `settings.json`:
+
 ```
-podman build -f Containerfile -t rest-assured-course:latest .
+{
+  "dev.containers.dockerPath": "podman"
+}
 ```
 
-3) Run the container (the image ENTRYPOINT runs `mvn test`):
+#### Troubleshooting
+
+If you encounter the error:
+
 ```
-podman run --rm rest-assured-course:latest
+Error: getting absolute path of \\wsl.localhost\Ubuntu\mnt\wslg\runtime-dir\wayl
+and-0: unsupported UNC path
 ```
 
-Dev container (optional)
+Add the following to your User `settings.json`:
 
-To use Podman instead of Docker, configure the Dev Containers extension to use Podman by setting the dockerPath to "podman". See the VS Code docs: https://code.visualstudio.com/remote/advancedcontainers/docker-options#_podman
-
-Install the Dev Containers extension:
-- Marketplace: https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers
+```
+{
+  "dev.containers.mountWaylandSocket": false
+}
+```
 
 ## Maven
 
