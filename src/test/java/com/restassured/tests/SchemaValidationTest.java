@@ -12,7 +12,7 @@ import io.restassured.http.ContentType;
 public class SchemaValidationTest {
 
     /*
-        GET http://host.docker.internal/api/v1/authors/2 HTTP/1.1
+        GET http://host.docker.internal:8081/api/v1/authors/2 HTTP/1.1
         Accept: application/json
     */
 
@@ -21,7 +21,7 @@ public class SchemaValidationTest {
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
 
         RestAssured.given()
-                .baseUri("http://host.docker.internal/api/v1")
+                .baseUri("http://host.docker.internal:8081/api/v1")
                 .accept(ContentType.JSON)
                 .when()
                 .pathParam("id", 2)

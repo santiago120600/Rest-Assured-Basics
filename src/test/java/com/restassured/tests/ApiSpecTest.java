@@ -17,13 +17,13 @@ import io.restassured.specification.ResponseSpecification;
 public final class ApiSpecTest {
 
     /*
-     * GET http://host.docker.internal/api/v1/authors HTTP/1.1
+     * GET http://host.docker.internal:8081/api/v1/authors HTTP/1.1
      * Accept: application/json
      */
 
     public static RequestSpecification requestSpecificationExample() {
         return new RequestSpecBuilder()
-                .setBaseUri("http://host.docker.internal/api/v1")
+                .setBaseUri("http://host.docker.internal:8081/api/v1")
                 .setContentType(ContentType.JSON)
                 .addFilter(new RequestLoggingFilter())
                 .addFilter(new ResponseLoggingFilter())
@@ -59,7 +59,7 @@ public final class ApiSpecTest {
     }
 
     public static RequestSpecification spec;
-    private static String baseUrl = "http://host.docker.internal/api/v1";
+    private static String baseUrl = "http://host.docker.internal:8081/api/v1";
 
     @BeforeGroups("specs")
     public void setup() {

@@ -15,7 +15,7 @@ import io.restassured.response.Response;
 public class DataSourceTest {
 
     private static final String AUTHORS_EXCEL = "src/test/resources/authors.xlsx";
-    private static final String BASE_URL = "http://host.docker.internal/api/v1";
+    private static final String BASE_URL = "http://host.docker.internal:8081/api/v1";
 
     @DataProvider(name = "authorsData")
     public Object[][] authorsData() throws IOException {
@@ -23,7 +23,7 @@ public class DataSourceTest {
     }
 
     /*
-        POST http://host.docker.internal/api/v1/authors HTTP/1.1
+        POST http://host.docker.internal:8081/api/v1/authors HTTP/1.1
         content-type: application/json
         Accept: application/json
         

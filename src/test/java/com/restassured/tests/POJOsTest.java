@@ -17,7 +17,7 @@ import static io.restassured.RestAssured.given;
 
 public class POJOsTest {
 
-    String baseUri = "http://host.docker.internal/api/v1";
+    String baseUri = "http://host.docker.internal:8081/api/v1";
     public static RequestSpecification spec;
 
     @BeforeTest
@@ -31,7 +31,7 @@ public class POJOsTest {
     }
 
     /*
-        GET http://host.docker.internal/api/v1/authors/2 HTTP/1.1
+        GET http://host.docker.internal:8081/api/v1/authors/2 HTTP/1.1
         Accept: application/json
     */
 
@@ -53,7 +53,7 @@ public class POJOsTest {
     }
 
     /*
-        POST http://host.docker.internal/api/v1/authors HTTP/1.1
+        POST http://host.docker.internal:8081/api/v1/authors HTTP/1.1
         content-type: application/json
         Accept: application/json
         
