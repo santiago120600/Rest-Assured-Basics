@@ -8,7 +8,8 @@
     <classes>
       <class name="com.restassured.tests.POJOsTest">
         <methods>
-          <include name="testDeserialization" />
+          <include name="testDeserializationBook"/>
+          <include name="testSerializationBook"/>
         </methods>
       </class>
     </classes>

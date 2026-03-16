@@ -54,7 +54,7 @@
                 "-p",
                 "8866:8866",
                 "-p",
-                "8081:8081",
+                "8082:8081",
                 "mitmproxy/mitmproxy:12.1.1",
                 "mitmweb",
                 "--listen-host",

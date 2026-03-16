@@ -77,6 +77,10 @@ Example:
 
 `mvn test -Dtest=BasicRestAssuredTest#testGetRequest`
 
+`mvn test -Dtest=DataSourceTest#testBookPostRequest`
+`mvn test -DsuiteXmlFiles=testng.xml`
+
+
 ## CURL Examples
 
 ### GET request
@@ -122,7 +126,7 @@ To run mitmweb with Podman:
 podman run -d \
   --name mitmproxy \
   -p 8866:8866 \
-  -p 8081:8081 \
+  -p 8082:8081 \
   mitmproxy/mitmproxy:12.1.1 \
   mitmweb --listen-host 0.0.0.0 --listen-port 8866 \
           --web-host 0.0.0.0 --web-port 8081 \
@@ -132,7 +136,7 @@ podman run -d \
 The command starts:
 
 - The **proxy** on port **8866**  
-- The **web interface** on port **8081**
+- The **web interface** on port **8082**
 
 Test the proxy
 `curl -x http://localhost:8866 http://host.docker.internal/api/v1/authors`
