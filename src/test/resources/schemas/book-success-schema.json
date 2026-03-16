@@ -1,0 +1,49 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "number"
+        },
+        "title": {
+            "type": "string",
+            "minLength": 1
+        },
+        "isbn": {
+            "type": "string",
+            "minLength": 1
+        },
+        "author": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "first_name": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "last_name": {
+                    "type": "string",
+                    "minLength": 1
+                }
+            },
+            "required": [
+                "id",
+                "first_name",
+                "last_name"
+            ]
+        },
+        "aisle_number": {
+            "type": "number"
+        }
+    },
+    "required": [
+        "id",
+        "title",
+        "isbn",
+        "author",
+        "aisle_number"
+    ]
+}

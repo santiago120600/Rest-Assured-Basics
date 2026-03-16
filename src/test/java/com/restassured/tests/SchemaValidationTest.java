@@ -31,4 +31,25 @@ public class SchemaValidationTest {
                 .statusCode(200)
                 .body(matchesJsonSchemaInClasspath("schemas/author-success-schema.json"));
     }
+
+    /*
+        GET http://host.docker.internal:8081/api/v1/books/2 HTTP/1.1
+        Accept: application/json
+    */
+
+    @Test
+    public void testSchemaBook() {
+        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+
+        RestAssured.given()
+                .baseUri("http://host.docker.internal:8081/api/v1")
+                .accept(ContentType.JSON)
+                .when()
+                .pathParam("id", 2)
+                .get("/books/{id}")
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("schemas/book-success-schema.json"));
+    }
 }
