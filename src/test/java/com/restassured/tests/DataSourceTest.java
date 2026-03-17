@@ -15,7 +15,7 @@ import io.restassured.response.Response;
 
 public class DataSourceTest {
 
-    private static final String BOOKS_EXCEL = "src/test/resources/books.xlsx";
+    private static final String BOOKS_EXCEL = "src/test/resources/Books.xlsx";
     private static final String AUTHORS_EXCEL = "src/test/resources/authors.xlsx";
     private static final String BASE_URL = "http://host.docker.internal:8081/api/v1";
 
@@ -74,8 +74,8 @@ public class DataSourceTest {
     */
 
     @Test(dataProvider = "booksData")
-    public void testBookPostRequest(String title, String isbn, String authorId, String aisle) {
-
+    public void testBookPostRequest(String title, String isbn, Double authorId, Double aisle) {
+        RestAssured.proxy("host.docker.internal", 8866);
         Response response = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
@@ -83,8 +83,8 @@ public class DataSourceTest {
                 .body(Book.builder()
                         .title(title)
                         .isbn(isbn)
-                        .authorId(authorId)
-                        .aisle(aisle)
+                        .authorId(authorId.intValue())
+                        .aisle(aisle.intValue())
                         .build())
                 .when()
                 .post("/books")
