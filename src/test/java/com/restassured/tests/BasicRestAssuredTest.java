@@ -81,6 +81,26 @@ public class BasicRestAssuredTest {
     }
 
     /*
+        GET http://host.docker.internal:8081/api/v1/authors HTTP/1.1
+        Accept: application/json
+    */
+
+    @Test
+    public void testGetHeader() {
+        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+
+        Response response = RestAssured.given()
+                .accept(ContentType.JSON)
+                .header("Content-Type", "application/json")
+                .when()
+                .get("http://host.docker.internal:8081/api/v1/authors")
+                .then()
+                .header("Server", "nginx/1.29.3")
+                .extract().response();
+        Assert.assertEquals(response.getStatusCode(), 200);
+    }
+
+    /*
         GET http://host.docker.internal:8081/api/v1/authors?firstName=Ernest HTTP/1.1
         Accept: application/json
     */
