@@ -8,6 +8,9 @@ import io.restassured.response.Response;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
+
+import java.util.Map;
+
 import static org.hamcrest.Matchers.equalTo;
 
 import org.testng.Assert;
@@ -81,6 +84,48 @@ public class BasicRestAssuredTest {
     }
 
     /*
+        GET http://host.docker.internal:8081/api/v1/authors HTTP/1.1
+        Accept: application/json
+        Cookie: session_id=1234
+    */
+
+    @Test
+    public void testGetCookie() {
+        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+
+        Response response = RestAssured.given()
+                .cookie("session_id", "1234")
+                .when()
+                .get("http://host.docker.internal:8081/api/v1/authors")
+                .then()
+                .extract().response();
+        Assert.assertEquals(response.getStatusCode(), 200);
+    }
+
+    /*
+        GET http://host.docker.internal:8081/api/v1/authors HTTP/1.1
+        Accept: application/json
+        Cookie: session_id=12345abcd
+        Cookie: user_preference=dark_mode
+    */
+
+    @Test
+    public void testGetMultipleCookies() {
+        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+
+        Response response = RestAssured.given()
+                .cookies(Map.of(
+                    "session_id", "12345abcd",
+                    "user_preference", "dark_mode"
+                ))
+                .when()
+                .get("http://host.docker.internal:8081/api/v1/authors")
+                .then()
+                .extract().response();
+        Assert.assertEquals(response.getStatusCode(), 200);
+    }
+
+     /*
         GET http://host.docker.internal:8081/api/v1/authors HTTP/1.1
         Accept: application/json
     */
