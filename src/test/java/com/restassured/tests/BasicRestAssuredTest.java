@@ -127,6 +127,7 @@ public class BasicRestAssuredTest {
 
      /*
         GET http://host.docker.internal:8081/api/v1/authors HTTP/1.1
+        Content-Type: application/json
         Accept: application/json
     */
 
