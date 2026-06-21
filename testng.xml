@@ -6,10 +6,10 @@
   </listeners>
   <test name="RestAssuredTests">
     <classes>
-      <class name="com.restassured.tests.POJOsTest">
+      <class name="com.restassured.tests.BasicRestAssuredTest">
         <methods>
-          <include name="testDeserializationBook"/>
-          <include name="testSerializationBook"/>
+          <include name="testGetCookie"/>
+          <include name="testGetMultipleCookies"/>
         </methods>
       </class>
     </classes>
