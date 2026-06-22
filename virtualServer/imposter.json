@@ -215,10 +215,7 @@
                 {
                     "matches": {
                         "method": "PUT",
-                        "path": "^/api/v1/books/\\d+$",
-                        "headers": {
-                            "Content-Type": "application/json"
-                        }
+                        "path": "^/api/v1/books/\\d+$"
                     },
                     "exists": {
                         "body": {
@@ -244,6 +241,179 @@
                     "matches": {
                         "method": "DELETE",
                         "path": "^/api/v1/books/\\d+$"
+                    }
+                }
+            ]
+        },
+        {
+            "responses": [
+                {
+                    "is": {
+                        "statusCode": 200,
+                        "body": {
+                            "id": 1,
+                            "first_name": "Ernest",
+                            "last_name": "Hemingway"
+                        },
+                        "headers": {
+                            "Content-Type": "application/json"
+                        }
+                    }
+                }
+            ],
+            "predicates": [
+                {
+                    "matches": {
+                        "method": "GET",
+                        "path": "^/api/v1/authors/\\d+$"
+                    }
+                }
+            ]
+        },
+        {
+            "responses": [
+                {
+                    "is": {
+                        "statusCode": 200,
+                        "body": {
+                            "id": 1,
+                            "first_name": "Ernest",
+                            "last_name": "Hemingway"
+                        },
+                        "headers": {
+                            "Content-Type": "application/json"
+                        }
+                    }
+                }
+            ],
+            "predicates": [
+                {
+                    "equals": {
+                        "method": "GET",
+                        "path": "/api/v1/authors"
+                    }
+                }
+            ]
+        },
+        {
+            "responses": [
+                {
+                    "is": {
+                        "statusCode": 201,
+                        "body": {
+                            "id": 1,
+                            "first_name": "${first_name}",
+                            "last_name": "${last_name}"
+                        },
+                        "headers": {
+                            "Content-Type": "application/json"
+                        }
+                    },
+                    "behaviors": [
+                        {
+                            "copy": {
+                                "from": "body",
+                                "into": "${first_name}",
+                                "using": {
+                                    "method": "jsonpath",
+                                    "selector": "$.first_name"
+                                }
+                            }
+                        },
+                        {
+                            "copy": {
+                                "from": "body",
+                                "into": "${last_name}",
+                                "using": {
+                                    "method": "jsonpath",
+                                    "selector": "$.last_name"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+            "predicates": [
+                {
+                    "equals": {
+                        "method": "POST",
+                        "path": "/api/v1/authors"
+                    },
+                    "exists": {
+                        "body": {
+                            "first_name": true,
+                            "last_name": true
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "responses": [
+                {
+                    "is": {
+                        "statusCode": 200,
+                        "body": {
+                            "id": 1,
+                            "first_name": "${first_name}",
+                            "last_name": "${last_name}"
+                        },
+                        "headers": {
+                            "Content-Type": "application/json"
+                        }
+                    },
+                    "behaviors": [
+                        {
+                            "copy": {
+                                "from": "body",
+                                "into": "${first_name}",
+                                "using": {
+                                    "method": "jsonpath",
+                                    "selector": "$.first_name"
+                                }
+                            }
+                        },
+                        {
+                            "copy": {
+                                "from": "body",
+                                "into": "${last_name}",
+                                "using": {
+                                    "method": "jsonpath",
+                                    "selector": "$.last_name"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+            "predicates": [
+                {
+                    "matches": {
+                        "method": "PUT",
+                        "path": "^/api/v1/authors/\\d+$"
+                    },
+                    "exists": {
+                        "body": {
+                            "first_name": true,
+                            "last_name": true
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "responses": [
+                {
+                    "is": {
+                        "statusCode": 200
+                    }
+                }
+            ],
+            "predicates": [
+                {
+                    "matches": {
+                        "method": "DELETE",
+                        "path": "^/api/v1/authors/\\d+$"
                     }
                 }
             ]

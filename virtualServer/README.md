@@ -21,6 +21,26 @@ Once the container is running:
 * **Mountebank Admin API:** http://localhost:2525
 * **Mock API:** http://localhost:5555
 
+## Run locally
+
+To run Mountebank without a container, install it globally with npm:
+
+```bash
+npm install -g mountebank
+```
+
+Then start Mountebank with the config file:
+
+```bash
+mb --configfile ./virtualServer/imposter.json
+```
+
+## Notes
+
+- Mountebank’s default admin interface runs on port `2525`.
+- The mock service port `5555` is defined by the imposter configuration file.
+- After starting Mountebank locally, you can also access its built-in documentation from the admin URL.
+
 ---
 
 # Manage Imposters
@@ -144,6 +164,12 @@ DELETE http://localhost:5555/api/v1/books/1
 ---
 
 ## Authors
+
+### Get all authors
+```http
+GET http://localhost:5555/api/v1/authors
+```
+
 
 ### Get an author
 
