@@ -43,6 +43,25 @@
             "problemMatcher": []
         },
         {
+            "label": "Run mountebank",
+            "type": "shell",
+            "command": "podman",
+            "args": [
+                "run",
+                "-d",
+                "--name", "mountebank",
+                "-p", "2525:2525", // Mountebank management port
+                "-p", "5555:5555", // Mock service port
+                "-v", "${workspaceFolder}/virtualServer/imposter.json:/imposter.json",
+                "andyrbell/mountebank:2.7.0",
+                "mb",
+                "--configfile", 
+                "/imposter.json",
+                "--allowInjection"
+            ],
+            "problemMatcher": []
+        },
+        {
             "label": "Run mitmproxy",
             "type": "shell",
             "command": "podman",
